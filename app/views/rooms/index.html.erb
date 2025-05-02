@@ -1,0 +1,33 @@
+<nav>
+  <% if user_signed_in? %>
+    <p>Welcome, <%= current_user.username %></p>
+      <%= link_to "Edit user", edit_user_registration_path %>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Log in", user_session_path %>
+  <% end %>
+
+</nav>
+<div id='chatapp'>
+  <div id="rooms">
+    <div id="room-list">
+      <% @rooms.each do |room| %>
+      <div class="entry-room">
+        <%= render room %>
+      </div>
+      <% end %>
+    </div>
+      <%= render partial: 'form', locals: { room: Room.new(name: "Room #{Room.count + 1} ") } %>
+  </div>
+  <div id="messages">
+    <%= turbo_frame_tag "room-messages" do %>
+      <div id="message-list">
+        <% @messages.each do |message| %>
+          <%= render message %>
+        <% end %>
+      </div>
+      <%= render partial: 'messages/form', locals: { message: Message.new(room: @room) } %>
+      <%= turbo_stream_from @room %>
+      <% end %>
+  </div>
+</div>

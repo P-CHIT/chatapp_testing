@@ -1,0 +1,121 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+html, body, #chatapp{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#chatapp{
+    display: flex;
+    flex-direction: row;
+}
+
+#rooms{
+    background-color: lightblue;
+    width: 200px;
+}
+
+#messages{
+    padding-left: 20px;
+    background-color: beige;
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+}
+
+#message-form{
+    display: flex;
+    background-color: lightgreen;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.entry-room{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: thistle;
+    cursor: pointer;
+    text-align: center;
+}
+
+.entry-room:hover {
+    background-color: lightsalmon;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0px;
+    padding: 0px 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(253, 253, 169);
+}
+
+.message p{
+    width: 90%;
+    line-break: anywhere;
+}
+
+.message form {
+    display: inline-block;
+  }
+
+.delete-button{
+    background-color: rgb(250, 112, 112);
+    color: white;
+    border: wheat;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+nav{
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
+
+.emailcss {
+    display: flex;
+    flex: row;
+    gap: 10px;
+    user-select: none;
+}
+
+.usernamecss{
+    display: flex;
+    flex: row;
+    margin: 5px;
+    gap: 10px;
+    padding: 5px;
+    background-color: aquamarine;
+}
+.passcard{
+    padding: 5px;
+    margin: 5px;
+
+    background-color: antiquewhite;
+}
+
+.curpasscss{
+    padding: 5px;
+    background-color:rgb(245, 185, 111);
+}

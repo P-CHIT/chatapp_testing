@@ -1,0 +1,12 @@
+<div id="messages">
+  <%= turbo_frame_tag "room-messages" do %>
+    <div id="message-list">
+      <% @messages.each do |message| %>
+        <%= render message %>
+      <% end %>
+    </div>
+    <%= render partial: 'messages/form', locals: { message: Message.new(room: @room) } %>
+
+    <%= turbo_stream_from @room %>
+  <% end %>
+</div>
