@@ -11,11 +11,13 @@
 <div id='chatapp'>
   <div id="rooms">
     <div id="room-list">
-      <% @rooms.each do |room| %>
-      <div class="entry-room">
-        <%= render room %>
-      </div>
+      <% @rooms.includes(:users).each do |room| %>
+      <% if room.users.any? { |user| user.email == current_user.email } %>
+        <div class="entry-room">
+          <%= render room %>
+        </div>
       <% end %>
+    <% end %>
     </div>
       <%= render partial: 'form', locals: { room: Room.new(name: "Room #{Room.count + 1} ") } %>
   </div>
@@ -27,7 +29,9 @@
         <% end %>
       </div>
       <%= render partial: 'messages/form', locals: { message: Message.new(room: @room) } %>
-      <%= turbo_stream_from @room %>
+      <% if @room.present? %>
+  <%= turbo_stream_from @room %>
+<% end %>
       <% end %>
   </div>
 </div>

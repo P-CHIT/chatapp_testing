@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
 
+
   # GET /rooms or /rooms.json
   def index
     @rooms = Room.all
@@ -26,6 +27,7 @@ class RoomsController < ApplicationController
   # POST /rooms or /rooms.json
   def create
     @room = Room.new(room_params)
+    @room.user_ids = params[:room][:user_ids]
 
     respond_to do |format|
       if @room.save
@@ -37,6 +39,10 @@ class RoomsController < ApplicationController
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def room_params
+    params.require(:room).permit(:name, user_ids: [])
   end
 
   # PATCH/PUT /rooms/1 or /rooms/1.json
@@ -61,6 +67,7 @@ class RoomsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
