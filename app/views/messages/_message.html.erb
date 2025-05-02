@@ -1,6 +1,10 @@
 <div id="<%= dom_id message %>" class="message">
   <p>
-    <strong>Content:</strong>
+    <% if message.user.present? %>
+      <strong><%= message.user.username %>: </strong>
+    <% else %>
+      <strong>Content:</strong>
+    <% end %>
     <%= message.content %>
   </p>
     <%= button_to "Delete", message, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "delete-button" %>

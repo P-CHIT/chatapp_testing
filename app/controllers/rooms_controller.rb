@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms or /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.includes(:users)
 
     @room = @rooms[0] unless @rooms.empty?
     @messages =[]

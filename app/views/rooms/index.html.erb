@@ -11,14 +11,16 @@
 <div id='chatapp'>
   <div id="rooms">
     <div id="room-list">
-      <% @rooms.includes(:users).each do |room| %>
-      <% if room.users.any? { |user| user.email == current_user.email } %>
-        <div class="entry-room">
-          <%= render room %>
-        </div>
+      <% @rooms.each do |room| %>
+        <% if current_user && room.users.any? { |user| user && user.email == current_user.email } %>
+          <div class="entry-room">
+            <%= render room %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
     </div>
+    
+    
       <%= render partial: 'form', locals: { room: Room.new(name: "Room #{Room.count + 1} ") } %>
   </div>
   <div id="messages">
