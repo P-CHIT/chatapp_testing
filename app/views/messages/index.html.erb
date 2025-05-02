@@ -1,5 +1,10 @@
 <div id="messages">
   <%= turbo_frame_tag "room-messages" do %>
+  <% if @messages.any? && @messages.first.room.present? %>
+    <%= @messages.first.room.name %>
+    <% else %>
+    <p>no message</p>
+  <% end %>
     <div id="message-list">
       <% @messages.each do |message| %>
         <%= render message %>

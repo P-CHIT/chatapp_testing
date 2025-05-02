@@ -20,8 +20,9 @@
       <% end %>
     </div>
     
-    
+    <% if user_signed_in? %>
       <%= render partial: 'form', locals: { room: Room.new(name: "Room #{Room.count + 1} ") } %>
+      <% end%>
   </div>
   <div id="messages">
     <%= turbo_frame_tag "room-messages" do %>
@@ -30,7 +31,9 @@
           <%= render message %>
         <% end %>
       </div>
+      <% if user_signed_in? %>
       <%= render partial: 'messages/form', locals: { message: Message.new(room: @room) } %>
+      <% end %>
       <% if @room.present? %>
   <%= turbo_stream_from @room %>
 <% end %>
