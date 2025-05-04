@@ -1,10 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<h3>Add users to this room</h3>
 
-<%= render @message %>
+<% remaining_users = User.where.not(id: @room.users.pluck(:id)) %>
 
-<div>
-  <%= link_to "Edit this message", edit_message_path(@message) %> |
-  <%= link_to "Back to messages", messages_path %>
-
-  <%= button_to "Destroy this message", @message, method: :delete %>
-</div>
+<% if remaining_users.any? %>
+  <%= form_with url: add_users_room_path(@room), method: :post do %>
+    <% remaining_users.each do |user| %>
+      <div>
+        <%= check_box_tag "user_ids[]", user.id %>
+        <%= user.email %>
+      </div>
+    <% end %>
+    <%= submit_tag "Add Selected Users" %>
+  <% end %>
+<% else %>
+  <p>All users are already in this room.</p>
+<% end %>

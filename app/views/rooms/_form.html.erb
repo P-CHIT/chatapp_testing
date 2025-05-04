@@ -11,25 +11,24 @@
     </div>
   <% end %> -->
   <div id="actions">
-    <%= form_with(model: room) do |form| %>
-      <div>
-        <%= form.label :name, style: "display: block" %>
-        <%= form.text_field :name %>
-      </div>
-  
-      <div>
-        <%= form.label :user_ids, "Select Users" %><br>
-        <%= form.collection_check_boxes :user_ids, User.all, :id, :email do |b| %>
-  <div class='chooseuser'>
-    <%= b.check_box %> <%= b.label %>
-  </div>
-<% end %>
+  <%= form_with(model: room) do |form| %>
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
 
-      </div>
-  
-      <div>
-        <%= form.submit %>
-      </div>
-    <% end %>
-  </div>
-  
+    <div>
+      <%= form.label :user_ids, "Select Users" %><br>
+      <%= form.collection_check_boxes :user_ids, User.where.not(id: current_user.id), :id, :email do |b| %>
+        <div class='chooseuser'>
+          <%= b.check_box %> <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= hidden_field_tag 'room[user_ids][]', current_user.id %> 
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

@@ -5,14 +5,13 @@ class RoomsController < ApplicationController
   # GET /rooms or /rooms.json
   def index
     @rooms = Room.includes(:users)
-
-    @room = @rooms[0] unless @rooms.empty?
     @messages =[]
-    @messages = @room.messages unless @rooms.empty?
   end
 
   # GET /rooms/1 or /rooms/1.json
   def show
+    @room = Room.find(params[:id])
+    @messages = @room.messages
   end
 
   # GET /rooms/new
@@ -27,7 +26,7 @@ class RoomsController < ApplicationController
   # POST /rooms or /rooms.json
   def create
     @room = Room.new(room_params)
-    @room.user_ids = params[:room][:user_ids]
+    @room.user_ids = params[:room][:user_ids] 
 
     respond_to do |format|
       if @room.save
